@@ -6,7 +6,7 @@
 /*   By: mmeuric <mmeuric@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 14:15:09 by mmeuric           #+#    #+#             */
-/*   Updated: 2025/03/18 03:43:24 by mmeuric          ###   ########.fr       */
+/*   Updated: 2025/03/20 00:20:04 by mmeuric          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,6 @@ char	**expand_args(t_token *tok_lst)
 		expand_nosp_arg(tok_lst, &argv_lst, 0);
 		tok_lst = tok_lst->next;
 	}
-	argv_lst = expand_wild_cards(argv_lst);
 	argv = consume_argv(argv_lst);
 	return (argv);
 }

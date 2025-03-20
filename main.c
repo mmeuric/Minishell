@@ -6,7 +6,7 @@
 /*   By: mmeuric <mmeuric@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 14:55:32 by mmeuric           #+#    #+#             */
-/*   Updated: 2025/03/18 04:14:22 by mmeuric          ###   ########.fr       */
+/*   Updated: 2025/03/20 01:42:02 by mmeuric          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ int	main(int _, char **__, char **envp)
 		g_signal_status = 0;
 		tty_attr(attrs, ATTR_SET);
 	}
+	clear_history(); // Libère l'historique readline
 	exit(get_exit_status());
 }
 

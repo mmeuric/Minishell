@@ -6,7 +6,7 @@
 /*   By: mmeuric <mmeuric@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 14:20:51 by mmeuric           #+#    #+#             */
-/*   Updated: 2025/03/06 14:20:53 by mmeuric          ###   ########.fr       */
+/*   Updated: 2025/03/20 00:38:33 by mmeuric          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_token_type	get_token_type(char *str)
 	if (ft_iswhitespace(str[0]))
 		return (WHITE_SPACE);
 	if (str[0] == '|')
-		return (PIPE + (str[1] == '|'));
+		return (PIPE);
 	if (str[0] == '\'')
 		return (STR);
 	if (str[0] == '"')
@@ -50,8 +50,6 @@ t_token_type	get_token_type(char *str)
 		return (RPREN);
 	if (str[0] == '&')
 	{
-		if (str[1] == '&')
-			return (AND);
 		return (-1);
 	}
 	return (WORD);

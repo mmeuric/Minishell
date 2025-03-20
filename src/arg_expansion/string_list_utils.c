@@ -6,7 +6,7 @@
 /*   By: mmeuric <mmeuric@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 14:16:11 by mmeuric           #+#    #+#             */
-/*   Updated: 2025/03/06 14:16:13 by mmeuric          ###   ########.fr       */
+/*   Updated: 2025/03/20 00:24:37 by mmeuric          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	add_str_lst(char *str, t_str **lst, bool join_to_last, t_token *tok)
 {
 	bool	to_expand;
 
-	to_expand = (tok->type == WORD && ft_strchr(str, '*'));
+	to_expand = false;
 	if (tok->type == WORD && !ft_strncmp(str, "$", 2) && tok->nospace_next)
 		str = "";
 	if (join_to_last)
