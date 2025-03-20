@@ -13,7 +13,7 @@ UNSET  = src/unset/unset.c src/unset/unset_utils.c
 EXPORT = src/export/export.c src/export/export_utils.c src/export/validation_utils.c src/export/utils.c
 ENV    = src/env/env.c src/env/env_utils.c
 
-M_SRC = $(ECHO) $(CD) $(EXIT) $(PWD) $(UNSET) $(EXPORT) $(ENV) global_utils.c global_utils2.c builtin_dispatcher.c lst_operations.c
+M_SRC = $(ECHO) $(CD) $(EXIT) $(PWD) $(UNSET) $(EXPORT) $(ENV) src/global_utils.c src/global_utils2.c src/builtin_dispatcher.c src/lst_operations.c
 
 EXEC_SRC = main.c $(M_SRC)
 

@@ -6,7 +6,7 @@
 #    By: mmeuric <mmeuric@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/06 14:04:53 by mmeuric           #+#    #+#              #
-#    Updated: 2025/03/18 04:51:23 by mmeuric          ###   ########.fr        #
+#    Updated: 2025/03/20 10:36:44 by mmeuric          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,12 +25,12 @@ OBJSFOLDER = objs/
 SRC_DIRS = src/lexer src/parser src/parser/syntax_tree src/execution src/arg_expansion \
            src/stringbuilder src/error src/heredoc src/signals src/exit
 
-SRCS = main.c $(foreach dir, $(SRC_DIRS), $(wildcard $(dir)/*.c))
+SRCS = src/main.c $(foreach dir, $(SRC_DIRS), $(wildcard $(dir)/*.c))
 OBJS = $(patsubst %.c, $(OBJSFOLDER)%.o, $(SRCS))
 
 # Gestion des Builtins
 BUILTINS_FOLD = src/cmds_minishell
-BUILTINS_FILES = builtin_dispatcher.c global_utils.c global_utils2.c lst_operations.c parse_utils.c \
+BUILTINS_FILES = src/builtin_dispatcher.c src/global_utils.c src/global_utils2.c src/lst_operations.c src/parse_utils.c \
                  src/cd/cd.c src/cd/cds_nuts.c src/cd/path_utils.c \
                  src/echo/echo.c src/echo/echo_utils.c \
                  src/env/env.c src/env/env_utils.c \
