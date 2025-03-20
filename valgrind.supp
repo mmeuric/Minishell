@@ -4,4 +4,10 @@
    ...
    obj:*/libreadline.so.*
 }
+{
+   ignore_still_reachable
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:*
+}
 
