@@ -6,35 +6,38 @@
 /*   By: mmeuric <mmeuric@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 14:55:32 by mmeuric           #+#    #+#             */
-/*   Updated: 2025/03/20 01:42:02 by mmeuric          ###   ########.fr       */
+/*   Updated: 2025/03/20 15:21:15 by mmeuric          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <executor.h>
+#include <exit.h>
 #include <globals.h>
 #include <lexer.h>
 #include <parser.h>
 #include <signals.h>
 #include <termios.h>
-#include <exit.h>
 
 int		g_signal_status;
 
-/* 
-** Affiche le répertoire de travail actuel sous une forme colorée dans le prompt.
+/*
+** Affiche le répertoire de travail actuel sous une forme 
+** colorée dans le prompt.
 */
 void	prompt_pwd(void)
 {
-	ft_putstr_fd("["BLUE, 1);
+	ft_putstr_fd("" BLUE, 1);
 	ft_putstr_fd(pwd_cmd(NULL), 1);
-	ft_putendl_fd(""NOCOL"]", 1);
+	ft_putendl_fd("" NOCOL "", 1);
 }
 
-/* 
-** Modifie ou récupère les attributs du terminal en fonction de l'action spécifiée :
+/*
+** Modifie ou récupère les attributs du terminal en fonction de 
+** l'action spécifiée :
 ** - ATTR_GET : Récupère les attributs du terminal (stdin, stdout, stderr).
 ** - ATTR_SET : Applique les attributs modifiés au terminal.
-** - ATTR_CHG : Désactive l'affichage des caractères de contrôle (comme Ctrl+C).
+** - ATTR_CHG : Désactive l'affichage des caractères de contrôle 
+** (comme Ctrl+C).
 */
 void	tty_attr(struct termios *attrs, int action)
 {
@@ -59,12 +62,14 @@ void	tty_attr(struct termios *attrs, int action)
 	}
 }
 
-/* 
+/*
 ** Initialise l'environnement du shell :
 ** - Charge les variables d'environnement.
 ** - Définit le répertoire de travail initial.
 ** - Configure la gestion des signaux.
-** - Modifie les attributs du terminal pour désactiver l'affichage des caractères de contrôle.
+**
+	- Modifie les attributs du terminal pour désactiver
+	 l'affichage des caractères de contrôle.
 */
 void	initialize_shell(char **envp, struct termios *attrs, ...)
 {
@@ -80,7 +85,7 @@ void	initialize_shell(char **envp, struct termios *attrs, ...)
 	tty_attr(attrs, ATTR_CHG);
 }
 
-/* 
+/*
 ** Traite une ligne de commande :
 ** - Vérifie si la commande est vide (cas où l'utilisateur a pressé Ctrl+D).
 ** - Effectue l'analyse lexicale (tokenization) de la commande.
@@ -89,8 +94,8 @@ void	initialize_shell(char **envp, struct termios *attrs, ...)
 */
 bool	parse_and_execute(char *command_line)
 {
-	t_token			*tokens;
-	t_ast_cmd		*ast;
+	t_token		*tokens;
+	t_ast_cmd	*ast;
 
 	if (!command_line)
 	{
@@ -112,12 +117,14 @@ bool	parse_and_execute(char *command_line)
 	return (free_ast(ast), free(command_line), false);
 }
 
-/* 
+/*
 ** Fonction principale du minishell :
 ** - Initialise l'environnement et configure le terminal.
 ** - Boucle infinie pour afficher le prompt et lire les commandes.
 ** - Exécute chaque commande et gère les signaux.
-** - Termine le programme si l'utilisateur entre "exit" ou envoie un signal d'arrêt.
+**
+	- Termine le programme si l'utilisateur entre "exit" 
+	ou envoie un signal d'arrêt.
 */
 int	main(int _, char **__, char **envp)
 {
@@ -135,7 +142,5 @@ int	main(int _, char **__, char **envp)
 		g_signal_status = 0;
 		tty_attr(attrs, ATTR_SET);
 	}
-	clear_history(); // Libère l'historique readline
 	exit(get_exit_status());
 }
-

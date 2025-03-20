@@ -6,7 +6,7 @@
 /*   By: mmeuric <mmeuric@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 14:26:52 by mmeuric           #+#    #+#             */
-/*   Updated: 2025/03/18 04:13:03 by mmeuric          ###   ########.fr       */
+/*   Updated: 2025/03/20 15:18:50 by mmeuric          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@
 
 t_env		*get_envp(t_env *envp);
 void		prompt_pwd(void);
-
-extern int	g_exit_status;
 extern int	g_signal_status;
 
 #endif /* GLOBALS_H */
