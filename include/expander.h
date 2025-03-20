@@ -35,9 +35,6 @@ void				expand_nosp_arg(t_token *sub_tok, t_str **lst,
 unsigned int		get_chunk_len(char *ptr, char *sp);
 void				ghost_char_action(char *str);
 
-/* wild_cards */
-t_str				*expand_wild_cards(t_str *argv_lst);
-
 /* String list utils */
 void				ft_stradd_back(t_str **lst, t_str *new);
 t_str				*new_str(char *str, bool to_expand);
