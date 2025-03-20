@@ -49,7 +49,17 @@ LIBFT = src/libft/libft.a
 GLOBAL_HEADERS = include/globals.h
 
 # Règles de compilation
-all: $(OBJSFOLDER) $(LIBFT) $(L_BUILTINS) $(NAME)
+all: banner $(OBJSFOLDER) $(LIBFT) $(L_BUILTINS) $(NAME)
+
+banner:
+	@echo "$(CYAN)"
+	@echo " ███╗   ███╗██╗███╗   ██╗██╗███████╗██╗  ██╗███████╗██╗     ██╗     " 
+	@echo " ████╗ ████║██║████╗  ██║██║██╔════╝██║  ██║██╔════╝██║     ██║     " 
+	@echo " ██╔████╔██║██║██╔██╗ ██║██║███████╗███████║█████╗  ██║     ██║     " 
+	@echo " ██║╚██╔╝██║██║██║╚██╗██║██║╚════██║██╔══██║██╔══╝  ██║     ██║     " 
+	@echo " ██║ ╚═╝ ██║██║██║ ╚████║██║███████║██║  ██║███████╗███████╗███████╗" 
+	@echo " ╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝╚═╝╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝" 
+	@echo "$(RESET)"
 
 $(LIBFT):
 	@echo "Compiling libft..."
