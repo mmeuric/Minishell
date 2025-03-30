@@ -6,7 +6,7 @@
 /*   By: mmeuric <mmeuric@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 14:37:31 by mmeuric           #+#    #+#             */
-/*   Updated: 2025/03/18 03:19:45 by mmeuric          ###   ########.fr       */
+/*   Updated: 2025/03/30 01:48:59 by mmeuric          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,23 @@ char	*pwd_cmd(char *str)
 	static char	*pwd;
 	t_env		*env;
 	t_env		*pwd_node;
+	char		*new_pwd;
 
 	if (!str)
 		return (pwd);
 	env = get_envp(NULL);
 	pwd_node = search_in_env(env, "PWD");
 	if (pwd_node)
-		set_env_value(ft_strdup("OLDPWD"), ft_strdup(pwd_node -> value), 1);
+		set_env_value(ft_strdup("OLDPWD"), ft_strdup(pwd_node->value), 1);
 	else
 		set_env_value(ft_strdup("OLDPWD"), ft_strdup(""), 1);
 	free(pwd);
 	pwd = trim_path(str);
-	set_env_value(ft_strdup("PWD"), ft_strdup(pwd), 1);
+	new_pwd = ft_strdup(pwd);
+	set_env_value(ft_strdup("PWD"), new_pwd, 1);
 	return (pwd);
 }
+
 
 void	shift_slice(char **slices)
 {

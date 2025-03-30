@@ -6,7 +6,7 @@
 /*   By: mmeuric <mmeuric@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 14:55:32 by mmeuric           #+#    #+#             */
-/*   Updated: 2025/03/30 01:09:00 by mmeuric          ###   ########.fr       */
+/*   Updated: 2025/03/30 01:38:59 by mmeuric          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ bool	parse_and_execute(char *command_line)
 {
     free(command_line);
     free_env();  // Libère l'environnement
+	free(pwd_cmd(NULL)); 
     exit(get_exit_status());
 }
 	lexer(command_line, &tokens);
@@ -163,5 +164,6 @@ int	main(int _, char **__, char **envp)
 		g_signal_status = 0;
 		tty_attr(attrs, ATTR_SET);
 	}
+	free(pwd_cmd(NULL)); 
 	exit(get_exit_status());
 }
