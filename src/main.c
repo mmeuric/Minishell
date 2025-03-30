@@ -6,7 +6,7 @@
 /*   By: mmeuric <mmeuric@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 14:55:32 by mmeuric           #+#    #+#             */
-/*   Updated: 2025/03/20 15:21:15 by mmeuric          ###   ########.fr       */
+/*   Updated: 2025/03/30 01:09:00 by mmeuric          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,20 @@ void	initialize_shell(char **envp, struct termios *attrs, ...)
 	tty_attr(attrs, ATTR_CHG);
 }
 
+void free_env(void)
+{
+    t_env *env = *get_envp_internal(NULL);
+    t_env *prev;
+    while (env)
+    {
+        free(env->key);
+        free(env->value);
+        prev = env;
+        env = env->next;
+        free(prev);
+    }
+}
+
 /*
 ** Traite une ligne de commande :
 ** - Vérifie si la commande est vide (cas où l'utilisateur a pressé Ctrl+D).
@@ -100,8 +114,15 @@ bool	parse_and_execute(char *command_line)
 	if (!command_line)
 	{
 		ft_putendl_fd("exit", 1);
+		free_env(); 
 		return (free(command_line), true);
 	}
+	if (ft_strcmp(command_line, "exit") == 0)
+{
+    free(command_line);
+    free_env();  // Libère l'environnement
+    exit(get_exit_status());
+}
 	lexer(command_line, &tokens);
 	if (parser(tokens, &ast))
 		executor(ast, false);
