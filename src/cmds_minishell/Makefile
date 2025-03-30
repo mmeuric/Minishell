@@ -6,7 +6,7 @@ EXEC = minishell
 
 CFLAGS = -Wall -Wextra -Werror -Iinclude -DFROM_SUBMODULE # -g -fsanitize=address
 ECHO   = src/echo/echo.c src/echo/echo_utils.c
-CD     = src/cd/cd.c src/cd/cds_nuts.c src/cd/path_utils.c
+CD     = src/cd/cd.c src/cd/cd_utils2.c src/cd/path_utils.c
 EXIT   = src/exit/exit.c
 PWD    = src/pwd/pwd.c src/pwd/pwd_utils.c
 UNSET  = src/unset/unset.c src/unset/unset_utils.c

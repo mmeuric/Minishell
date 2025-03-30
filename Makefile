@@ -6,11 +6,18 @@
 #    By: mmeuric <mmeuric@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/06 14:04:53 by mmeuric           #+#    #+#              #
-#    Updated: 2025/03/20 10:36:44 by mmeuric          ###   ########.fr        #
+#    Updated: 2025/03/30 03:34:51 by mmeuric          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
+
+# Couleurs
+RESET		:= \033[0m
+BOLD		:= \033[1m
+RED		:= \033[91m
+DARK_BLUE	:= \033[34m
+GREEN		:= \033[92m
 
 # Détection de l'OS et configuration de Readline
 ifeq ($(shell uname -s), Darwin)
@@ -31,7 +38,7 @@ OBJS = $(patsubst %.c, $(OBJSFOLDER)%.o, $(SRCS))
 # Gestion des Builtins
 BUILTINS_FOLD = src/cmds_minishell
 BUILTINS_FILES = src/builtin_dispatcher.c src/global_utils.c src/global_utils2.c src/lst_operations.c src/parse_utils.c \
-                 src/cd/cd.c src/cd/cds_nuts.c src/cd/path_utils.c \
+                 src/cd/cd.c src/cd/cd_utils2.c src/cd/path_utils.c \
                  src/echo/echo.c src/echo/echo_utils.c \
                  src/env/env.c src/env/env_utils.c \
                  src/exit/exit.c \
@@ -52,7 +59,7 @@ GLOBAL_HEADERS = include/globals.h
 all: banner $(OBJSFOLDER) $(LIBFT) $(L_BUILTINS) $(NAME)
 
 banner:
-	@echo "$(CYAN)"
+	@echo "$(DARK_BLUE)"
 	@echo " ███╗   ███╗██╗███╗   ██╗██╗███████╗██╗  ██╗███████╗██╗     ██╗     " 
 	@echo " ████╗ ████║██║████╗  ██║██║██╔════╝██║  ██║██╔════╝██║     ██║     " 
 	@echo " ██╔████╔██║██║██╔██╗ ██║██║███████╗███████║█████╗  ██║     ██║     " 
@@ -62,32 +69,37 @@ banner:
 	@echo "$(RESET)"
 
 $(LIBFT):
-	@echo "Compiling libft..."
-	@make -C src/libft
+	@make -s -C src/libft
+	@echo "$(BOLD)$(RED)[Compiling Libft]$(RESET)"
 
 $(OBJSFOLDER):
 	@mkdir -p $(OBJSFOLDER) $(foreach dir, $(SRC_DIRS), $(OBJSFOLDER)$(dir))
 
 $(L_BUILTINS): $(SRCS_BUILTINS)
-	@make -C $(BUILTINS_FOLD)
+	@make -s -C $(BUILTINS_FOLD)
+	@echo "$(BOLD)$(RED)[Compiling Builtins]$(RESET)"
 
 $(NAME): $(OBJS) $(L_BUILTINS)
-	$(CC) $(OBJS) $(CFLAGS) -o $(NAME) -L$(BUILTINS_FOLD) -lbuiltins -Lsrc/libft -lft $(LIB)
+	@$(CC) $(OBJS) $(CFLAGS) -o $(NAME) -L$(BUILTINS_FOLD) -lbuiltins -Lsrc/libft -lft $(LIB)
+	@echo "$(BOLD)$(GREEN)[Build complete!]$(RESET)"
 
 # Compilation des fichiers .c en .o
 $(OBJSFOLDER)%.o: %.c $(GLOBAL_HEADERS)
-	@echo "Compiling $<..."
+	@echo "$(BOLD)$(RED)[Compiling $<...]$(RESET)"
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 # Nettoyage
 clean:
-	rm -rf $(OBJSFOLDER)
-	@make clean -C src/libft
+	@rm -rf $(OBJSFOLDER)
+	@make -s -C src/libft clean
+	@echo "$(BOLD)$(RED)[Objects removed!]$(RESET)"
 
 fclean: clean
-	rm -f $(NAME)
-	@make fclean -C src/libft
+	@rm -f $(NAME)
+	@make -s -C src/libft fclean
+	@make -s -C src/cmds_minishell fclean
+	@echo "$(BOLD)$(RED)[Executable removed!]$(RESET)"
 
 re: fclean all
 
